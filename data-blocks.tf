@@ -45,6 +45,12 @@ data "azurerm_application_gateway" "appgateway" {
   ]
 }
 
+data "azurerm_public_ip" "appgatewaypublicip" {
+  name                = "appgwpublicip-mi-prod"
+  resource_group_name = data.azurerm_resource_group.rg-mcr-hub-cus-001.name
+  provider            = azurerm.sub_hub
+}
+
 // UAT environment data blocks
 data "azurerm_resource_group" "rg_name" {
   name = "rg-mi-prod-cus-001"
@@ -108,3 +114,18 @@ data "azurerm_private_dns_zone" "aks" {
   resource_group_name = data.azurerm_resource_group.rg-mcr-hub-cus-001.name
   provider = azurerm.sub_hub
 }
+
+#acr private_dns_zone
+data "azurerm_private_dns_zone" "acr" {
+  name                = "privatelink.azurecr.io"
+  resource_group_name = data.azurerm_resource_group.rg-mcr-hub-cus-001.name
+  provider = azurerm.sub_hub
+}
+
+#front door
+data "azurerm_cdn_frontdoor_profile" "example" {
+  name                = "fd-cus-mcr-pt-001"
+  resource_group_name = data.azurerm_resource_group.rg-mcr-hub-cus-001.name
+  provider             = azurerm.sub_hub
+}
+

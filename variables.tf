@@ -68,7 +68,8 @@ variable "keycloak_vm1_name" {}
 variable "keycloak_vm2_name" {}
 #
 # # AKS Private DNS zone link variable
-variable "private_link_name" {}
+variable "aks_private_link_name" {}
+variable "acr_private_link_name" {}
 variable "AKS_NAME" {
   description = "(Required) Specifies the name of the AKS cluster."
   type        = string
