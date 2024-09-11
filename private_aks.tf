@@ -145,23 +145,13 @@ resource "azurerm_kubernetes_cluster_node_pool" "linux101" {
   ]
   tags = var.tags
 }
-
-resource "azurerm_private_dns_zone_virtual_network_link" "pdzvnl-aks-mgmt" {
-  name                  = var.aks_private_link_name
-  resource_group_name   = data.azurerm_resource_group.rg-mcr-hub-cus-001.name
-  private_dns_zone_name = data.azurerm_private_dns_zone.aks.name
-  virtual_network_id    = data.azurerm_virtual_network.vnet_name.id
-  registration_enabled = true
-  provider = azurerm.sub_hub
-  tags = var.tags
-}
-
-resource "azurerm_private_dns_zone_virtual_network_link" "pdzvnl-acr-mgmt" {
-  name                  = var.acr_private_link_name
-  resource_group_name   = data.azurerm_resource_group.rg-mcr-hub-cus-001.name
-  private_dns_zone_name = data.azurerm_private_dns_zone.aks.name
-  virtual_network_id    = data.azurerm_virtual_network.vnet_name.id
-  registration_enabled = true
-  provider = azurerm.sub_hub
-  tags = var.tags
-}
+#
+# resource "azurerm_private_dns_zone_virtual_network_link" "pdzvnl-aks-mgmt" {
+#   name                  = var.aks_private_link_name
+#   resource_group_name   = data.azurerm_resource_group.rg-mcr-hub-cus-001.name
+#   private_dns_zone_name = data.azurerm_private_dns_zone.aks.name
+#   virtual_network_id    = data.azurerm_virtual_network.vnet_name.id
+#   registration_enabled = true
+#   provider = azurerm.sub_hub
+#   tags = var.tags
+# }

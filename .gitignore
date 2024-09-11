@@ -38,3 +38,4 @@ terraform.rc
 /.idea/
 /.terraform/
 /.terraform.lock.hcl
+/bak/

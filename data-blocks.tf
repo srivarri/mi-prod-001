@@ -129,3 +129,16 @@ data "azurerm_cdn_frontdoor_profile" "example" {
   provider             = azurerm.sub_hub
 }
 
+# Data blocks for keyvault
+
+data "azurerm_key_vault" "example" {
+  name                = "kv-fdmcr-hub-cus-001"
+  resource_group_name = data.azurerm_resource_group.rg-mcr-hub-cus-001.name
+  provider = azurerm.sub_hub
+}
+
+data "azurerm_key_vault_certificate" "example" {
+  name         = "medadvantage2024"
+  key_vault_id = data.azurerm_key_vault.example.id
+}
+

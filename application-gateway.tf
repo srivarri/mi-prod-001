@@ -51,6 +51,11 @@ resource "azurerm_application_gateway" "appgateway" {
     public_ip_address_id = azurerm_public_ip.appgwpublic_ip.id
   }
 
+  ssl_certificate {
+    name = "mpp-2024"
+    key_vault_secret_id = data.azurerm_key_vault_certificate.example.secret_id
+  }
+
   backend_address_pool {
     name = local.backend_address_pool_name
   }
