@@ -96,7 +96,7 @@ resource "azurerm_kubernetes_cluster" "akscluster" {
 
   oms_agent {
     msi_auth_for_monitoring_enabled = true
-    log_analytics_workspace_id      = data.azurerm_log_analytics_workspace.law-cus-mcr-hub-001.id
+    log_analytics_workspace_id      = azurerm_log_analytics_workspace.law-mi-prod-cus-001.id
   }
 
   microsoft_defender {
@@ -134,7 +134,7 @@ resource "azurerm_kubernetes_cluster_node_pool" "linux101" {
   os_disk_type            = var.default_node_pool_os_disk_type
   #temporary_name_for_rotation = "nodepoolrotation"
   node_labels = {
-    "nodepool-type" = var.user_node_pool_mode
+    "nodepool-type" = "User"
     "environment"   = var.environment
     "nodepoolos"    = "linux"
     "app"           = "user-apps"
@@ -155,3 +155,12 @@ resource "azurerm_kubernetes_cluster_node_pool" "linux101" {
 #   provider = azurerm.sub_hub
 #   tags = var.tags
 # }
+
+resource "azurerm_log_analytics_workspace" "law-mi-prod-cus-001" {
+  name                = "law-mi-prod-cus-001"
+  location            = data.azurerm_resource_group.rg_name.location
+  resource_group_name = data.azurerm_resource_group.rg_name.name
+  sku                 = "PerGB2018"  # Adjust as necessary
+  retention_in_days   = 30            # Adjust retention period as necessary
+}
+

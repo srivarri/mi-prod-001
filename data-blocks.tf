@@ -142,3 +142,14 @@ data "azurerm_key_vault_certificate" "example" {
   key_vault_id = data.azurerm_key_vault.example.id
 }
 
+data "azurerm_user_assigned_identity" "medadv360-terraform-app" {
+  name                = "medadv360-terraform-app"
+  resource_group_name = data.azurerm_resource_group.rg_name.name
+}
+
+data "azurerm_web_application_firewall_policy" "waf-mcr-hub-cus-001" {
+  resource_group_name = data.azurerm_resource_group.rg-mcr-hub-cus-001.name
+  name                = "waf-mcr-hub-cus-001"
+  provider = azurerm.sub_hub
+}
+
