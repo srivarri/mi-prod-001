@@ -8,8 +8,16 @@ resource "azurerm_virtual_network" "vnet_name" {
     enable = true
     id     = azurerm_network_ddos_protection_plan.vnet_ddos_plan.id
   }
-  tags = var.tags
-
+  tags = {
+    "App Type"         = "APP"
+    "Application Name" = "Medicare"
+    "Cost Center"      = "MedImpact"
+    "Created By"       = "Surendra/Sri"
+    "Created Date"     = "09/09/2024"
+    "Customer"         = "MedImpact"
+    "Environment"      = "PROD"
+    "Owner name"       = "@Gali Muralidhar"
+  }
 }
 
 resource "azurerm_subnet" "snet_1" {
@@ -17,6 +25,9 @@ resource "azurerm_subnet" "snet_1" {
   resource_group_name  = var.rg_name
   virtual_network_name = var.vnet_name
   address_prefixes     = var.snet_1_address_space
+  service_endpoints = [
+    "Microsoft.Storage"
+  ]
 
   depends_on = [
     azurerm_resource_group.rg_name,
@@ -29,6 +40,9 @@ resource "azurerm_subnet" "snet_2" {
   resource_group_name  = var.rg_name
   virtual_network_name = var.vnet_name
   address_prefixes     = var.snet_2_address_space
+  service_endpoints = [
+    "Microsoft.Storage"
+  ]
 
     delegation {
       name = "dlg-Microsoft.DBforPostgreSQL-flexibleServers"
@@ -49,6 +63,9 @@ resource "azurerm_subnet" "snet_3" {
   resource_group_name  = var.rg_name
   virtual_network_name = var.vnet_name
   address_prefixes     = var.snet_3_address_space
+  service_endpoints = [
+    "Microsoft.Storage"
+  ]
   depends_on = [
     azurerm_resource_group.rg_name,
     azurerm_virtual_network.vnet_name
@@ -60,6 +77,9 @@ resource "azurerm_subnet" "snet_4" {
   resource_group_name  = var.rg_name
   virtual_network_name = var.vnet_name
   address_prefixes     = var.snet_4_address_space
+  service_endpoints = [
+    "Microsoft.Storage"
+  ]
   depends_on = [
     azurerm_resource_group.rg_name,
     azurerm_virtual_network.vnet_name
@@ -71,6 +91,9 @@ resource "azurerm_subnet" "snet_5" {
   resource_group_name  = var.rg_name
   virtual_network_name = var.vnet_name
   address_prefixes     = var.snet_5_address_space
+  service_endpoints = [
+    "Microsoft.Storage"
+  ]
   depends_on = [
     azurerm_resource_group.rg_name,
     azurerm_virtual_network.vnet_name
@@ -82,6 +105,9 @@ resource "azurerm_subnet" "snet_6" {
   resource_group_name  = var.rg_name
   virtual_network_name = var.vnet_name
   address_prefixes     = var.snet_6_address_space
+  service_endpoints = [
+    "Microsoft.Storage"
+  ]
   depends_on = [
     azurerm_resource_group.rg_name,
     azurerm_virtual_network.vnet_name
@@ -151,7 +177,8 @@ resource "azurerm_subnet_network_security_group_association" "snet_1_nsg_associa
   subnet_id                 = data.azurerm_subnet.snet_1.id
   network_security_group_id = azurerm_network_security_group.example_nsg.id
   depends_on = [
-    azurerm_network_security_group.example_nsg
+    azurerm_network_security_group.example_nsg,
+    azurerm_subnet.snet_1
   ]
 }
 

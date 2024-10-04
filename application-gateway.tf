@@ -26,9 +26,11 @@ resource "azurerm_application_gateway" "appgateway" {
   resource_group_name = data.azurerm_resource_group.rg-mcr-hub-cus-001.name
   location            = data.azurerm_resource_group.rg-mcr-hub-cus-001.location
 
+  zones = ["1","2","3"]
+
   sku {
-    name     = "Standard_v2"
-    tier     = "Standard_v2"
+    name     = "WAF_v2"
+    tier     = "WAF_v2"
     capacity = 1
   }
 

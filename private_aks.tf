@@ -63,7 +63,7 @@ resource "azurerm_kubernetes_cluster" "akscluster" {
     os_disk_type            = var.default_node_pool_os_disk_type
     node_labels = {
       "nodepool-type" = "system"
-      "environment"   = "dev"
+      "environment"   = "prod"
       "nodepoolos"    = "linux"
       "app"           = "system-apps"
     }

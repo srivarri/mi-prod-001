@@ -37,7 +37,11 @@ resource "azurerm_windows_virtual_machine" "example_vm1" {
     azurerm_resource_group.rg_name,
     azurerm_subnet.snet_1
   ]
-  tags = var.tags
+  tags = {
+    "Created By"  = "Surendra/Sri"
+    "Environment" = "MCR PROD"
+    "Owner name"  = "@Gali Muralidhar"
+  }
 }
 
 # VM2
